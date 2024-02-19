@@ -1,4 +1,3 @@
-import setAttack from '../app';
 import Daemon from '../characters/Daemon';
 
 test.each([
@@ -11,7 +10,7 @@ test.each([
   ('Attack on distance %i without dope must be %i'),
   (distance, attack) => {
     const dem = new Daemon(1);
-    setAttack(distance, dem);
+    dem.distance = distance;
     expect(dem.attack).toBe(attack);
   }
 )
@@ -27,7 +26,7 @@ test.each([
   (distance, attack) => {
     const dem = new Daemon(1);
     dem.stoned = true;
-    setAttack(distance, dem);
+    dem.distance = distance;
     expect(dem.attack).toBe(attack);
   }
 )

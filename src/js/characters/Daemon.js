@@ -3,19 +3,31 @@ import Character from "../Character";
 export default class Daemon extends Character {
   constructor(level) {
     super(level);
-    this.attack = 100;
     this.defence = 10;
     this.type = 'Daemon';
     this._stoned = false;
-    this._attack = this.attack;
+    this._attack = 100;
+    this._distance = 1;
   }
 
   set stoned(val) {
-    this._stoned = val;
+    if (typeof val === 'boolean') {
+      this._stoned = val;
+    } else {
+      throw new Error('Неверный тип переменной дурмана')
+    }
   }
 
   get stoned() {
     return this._stoned;
+  }
+
+  set distance(val) {
+    this._distance = val;
+  }
+
+  get distance() {
+    return this._distance;
   }
 
   set attack(val) {
@@ -23,6 +35,11 @@ export default class Daemon extends Character {
   }
 
   get attack() {
-    return this._attack;
+    return this._attack - ((this.distance * 10 - 10) + (this.stoned ? Math.log2(this.distance) * 5 : 0)).toFixed(2);
+  }
+
+  count() {
+    //console.log(this._attack - ((this.distance * 10 - 10) + (this.stoned ? Math.log2(this.distance) * 5 : 0)).toFixed(2));
+    //console.log(this._attack)
   }
 }
